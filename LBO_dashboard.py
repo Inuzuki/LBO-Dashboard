@@ -50,7 +50,7 @@ time = st.sidebar.slider(
 
 # Income statement parameters
 current_sales = st.sidebar.number_input(
-    'Current sales ($M)',
+    'Current sales (€M)',
     value=DEFAULT_CURRENT_SALES
 )
 
@@ -147,7 +147,7 @@ st.header("Debt Modelling")
 col1, col2 = st.columns(2)
 with col1:
     deal_value = st.number_input(
-        'Deal value ($M)',
+        'Deal value (€M)',
         min_value=0.0,
         max_value=1500.0,
         value=None,
@@ -156,7 +156,7 @@ with col1:
 
 with col2:
     current_ebit = st.number_input(
-        'Current EBIT ($M)',
+        'Current EBIT (€M)',
         min_value=0.0,
         max_value=1500.0,
         value=None,
@@ -167,7 +167,7 @@ st.markdown("### Select Financial Covenants")
 
 # Initialize optimization parameters
 # Seed the optimizer with a sensible starting repayment schedule:
-# each year repays 30% of that year's FCF, floored at $0.1M to avoid zero-repayment years
+# each year repays 30% of that year's FCF, floored at €0.1M to avoid zero-repayment years
 # that could cause numerical issues in coverage ratio calculations.
 initial_guess = np.maximum(fcf_array * DEBT_REPAYMENT_RATIO, DEBT_REPAYMENT_MINIMUM)
 
@@ -217,7 +217,7 @@ debt_limit = deal_value
 max_debt_selected = st.checkbox('Maximum Debt Covenant')
 if max_debt_selected:
     debt_limit = st.number_input(
-        'Maximum debt allowed ($M)',
+        'Maximum debt allowed (€M)',
         min_value=0.0,
         max_value=15000.0,
         value=deal_value,
@@ -321,7 +321,7 @@ if st.button('Run Optimization'):
         st.metric("Equity IRR", f"{irr:.2%}")
 
     with col2:
-        st.metric("Optimal Debt", f"${optimal_debt:.2f}M")
+        st.metric("Optimal Debt", f"€{optimal_debt:.2f}M")
         
 
     lboviz.visualize_optimization(result, debt_table_recap, fcf_array, ebitda_array, time,
