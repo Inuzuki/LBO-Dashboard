@@ -47,7 +47,7 @@ def visualize_optimization(minimization_result, debt_table_recap, fcf_array, ebi
     
     with col3:
         debt_satisfied = round(total_debt, 2) <= debt_limit
-        st.metric("Total Debt", f"${total_debt:.2f}M", f"Max: ${debt_limit:.2f}M",
+        st.metric("Total Debt", f"€{total_debt:.2f}M", f"Max: €{debt_limit:.2f}M",
                  delta_color="inverse" if not debt_satisfied else "off")
     
     # ============================================================================
@@ -118,7 +118,7 @@ def visualize_optimal_solution(fcf_array, optimal_repayments, dscr_values, inter
     ax1.bar(years - 0.2, initial, 0.4, label='Initial Guess', alpha=0.5, color='lightblue')
     ax1.bar(years + 0.2, optimal_repayments, 0.4, label='Optimal Solution', alpha=0.8, color='darkgreen')
     ax1.set_xlabel('Year')
-    ax1.set_ylabel('Debt Repayment ($M)')
+    ax1.set_ylabel('Debt Repayment (€M)')
     ax1.set_title('Debt Repayment Schedule: Initial vs Optimal')
     ax1.legend()
     ax1.grid(axis='y', alpha=0.3)
@@ -165,14 +165,14 @@ def visualize_optimal_solution(fcf_array, optimal_repayments, dscr_values, inter
     
     color_debt = 'green' if total_debt <= debt_limit else 'orange'
     ax4.bar(years, total_debt_cum, alpha=0.8, color=color_debt, label='Cumulative Debt')
-    ax4.axhline(y=debt_limit, color='r', linestyle='--', linewidth=2, label=f'Max Debt Limit (${debt_limit:.2f}M)')
+    ax4.axhline(y=debt_limit, color='r', linestyle='--', linewidth=2, label=f'Max Debt Limit (€{debt_limit:.2f}M)')
     ax4.fill_between(years, 0, debt_limit, alpha=0.1, color='green')
     
     if round(total_debt, 2) > debt_limit:
         ax4.axhspan(debt_limit, total_debt_cum.max(), alpha=0.2, color='red', label='Violation')
     
     ax4.set_xlabel('Year')
-    ax4.set_ylabel('Cumulative Debt Outstanding ($M)')
+    ax4.set_ylabel('Cumulative Debt Outstanding (€M)')
     ax4.set_title(f'Maximum Debt Constraint (Active: {debt_limit})')
     ax4.legend()
     ax4.grid(axis='y', alpha=0.3)
@@ -255,8 +255,8 @@ def visualize_optimization_progress(intermediate_solutions, fcf_array, ebitda_ar
         # Row 0: Debt Repayment Schedule
         ax = axes[0, col_idx]
         ax.bar(years, repayment, alpha=0.8, color='steelblue')
-        ax.set_ylabel('Debt Repayment ($M)' if col_idx == 0 else '')
-        ax.set_title(f'Iteration {iter_idx}\nTotal Debt: ${total:.2f}M')
+        ax.set_ylabel('Debt Repayment (€M)' if col_idx == 0 else '')
+        ax.set_title(f'Iteration {iter_idx}\nTotal Debt: €{total:.2f}M')
         ax.grid(axis='y', alpha=0.3)
         
         # Row 1: DSCR Constraint
@@ -302,7 +302,7 @@ def visualize_optimization_progress(intermediate_solutions, fcf_array, ebitda_ar
         
         iteration_data.append({
             'Iteration': iter_idx,
-            'Total Debt ($M)': round(total, 2),
+            'Total Debt (€M)': round(total, 2),
             'Min DSCR': round(dscr_iter.min(), 2),
             'DSCR ✓': dscr_ok,
             'Min Interest Cov': round(interest_cov_iter.min(), 2),
