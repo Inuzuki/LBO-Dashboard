@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jan 16 19:39:00 2024
-
-@author: chris
-"""
-
 import streamlit as st
 import numpy as np
 from scipy.optimize import minimize, NonlinearConstraint
