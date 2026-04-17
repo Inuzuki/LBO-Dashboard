@@ -23,7 +23,7 @@ def generate_cash_flow_table(time: int,
     time : int
         Number of years to project (i.e. the planned exit horizon)
     curr_sales : float
-        Current (Year 0) revenue, used as the compounding base ($M)
+        Current (Year 0) revenue, used as the compounding base (€M)
     sales_rate : float
         Annual sales growth rate (e.g., 0.05 for 5%)
     ebit_sales_rate : float
